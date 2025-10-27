@@ -1,4 +1,4 @@
-# hello-arabic
+# game-launcher
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/KaizerAE/hello-arabic/main/assets/hero.png" alt="hello-arabic banner" width="820"/>
