@@ -1,48 +1,71 @@
 # src/database/storage.py
-# إدارة قاعدة البيانات والتخزين
+# إدارة التخزين باستخدام pickle
 """
 Storage Module
-يدير حفظ واسترجاع بيانات الألعاب
+يدير حفظ واسترجاع بيانات الألعاب باستخدام pickle
 """
 
-import json
 import os
+import pickle
+from typing import List, Dict, Any
+
 
 class DatabaseManager:
     """
-    Class لإدارة قاعدة البيانات
-    
-    سيحتوي لاحقاً على:
-    - حفظ بيانات الألعاب (JSON/SQLite)
-    - استرجاع البيانات
-    - عمليات CRUD
-    - تصدير واستيراد
+    مدير قاعدة البيانات المبني على pickle
+    - يحفظ البيانات في ملف ثنائي
+    - يوفر عمليات التحميل والحفظ بأمان
     """
-    
-    def __init__(self, db_path="games.json"):
-        """
-        تهيئة مدير قاعدة البيانات
-        """
+
+    def __init__(self, db_path: str = "games.db"):
+        """تهيئة مدير قاعدة البيانات"""
         self.db_path = db_path
-        pass
-    
-    def save_data(self, data):
+        # تأكد من وجود المجلد
+        folder = os.path.dirname(self.db_path)
+        if folder and not os.path.exists(folder):
+            os.makedirs(folder, exist_ok=True)
+
+    def save_games(self, games_data: List[Dict[str, Any]]) -> None:
         """
-        حفظ البيانات
-        TODO: تنفيذ حفظ البيانات
+        حفظ قائمة الألعاب إلى الملف
+        Args:
+            games_data: قائمة قواميس تمثل الألعاب
         """
-        pass
-    
-    def load_data(self):
+        tmp_path = self.db_path + ".tmp"
+        try:
+            with open(tmp_path, "wb") as f:
+                pickle.dump(games_data, f, protocol=pickle.HIGHEST_PROTOCOL)
+            # استبدال آمن
+            os.replace(tmp_path, self.db_path)
+        finally:
+            # تنظيف الملف المؤقت إذا بقي
+            if os.path.exists(tmp_path):
+                try:
+                    os.remove(tmp_path)
+                except OSError:
+                    pass
+
+    def load_games(self) -> List[Dict[str, Any]]:
         """
-        تحميل البيانات
-        TODO: تنفيذ تحميل البيانات
+        تحميل قائمة الألعاب من الملف. يعيد قائمة فارغة إذا لم يوجد الملف.
         """
-        pass
-    
-    def delete_data(self, item_id):
-        """
-        حذف بيانات
-        TODO: تنفيذ حذف البيانات
-        """
-        pass
+        if not os.path.exists(self.db_path):
+            return []
+        try:
+            with open(self.db_path, "rb") as f:
+                data = pickle.load(f)
+                # تأكد من أن البيانات قائمة
+                if isinstance(data, list):
+                    return data
+                return []
+        except Exception as e:
+            print(f"خطأ في تحميل قاعدة البيانات: {e}")
+            return []
+
+    def clear(self) -> None:
+        """حذف ملف قاعدة البيانات"""
+        try:
+            if os.path.exists(self.db_path):
+                os.remove(self.db_path)
+        except Exception as e:
+            print(f"تعذر حذف قاعدة البيانات: {e}")
