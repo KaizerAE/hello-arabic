@@ -1,0 +1,76 @@
+# Game Launcher - Required Dependencies
+# مشغل الألعاب - المكتبات المطلوبة
+
+# Main GUI Framework / إطار الواجهة الرسومية الرئيسي
+PyQt5>=5.15.0
+
+# Additional PyQt5 Tools (optional but recommended)
+# أدوات PyQt5 إضافية (اختيارية ولكن موصى بها)
+PyQt5-sip>=12.8.0
+
+# Future Dependencies (will be added in upcoming versions)
+# المكتبات المستقبلية (سيتم إضافتها في الإصدارات القادمة)
+
+# Database support / دعم قواعد البيانات
+# SQLAlchemy>=2.0.0
+
+# API requests / طلبات API
+# requests>=2.31.0
+
+# JSON handling (built-in to Python 3)
+# معالجة JSON (مدمج في Python 3)
+
+# Image processing / معالجة الصور
+# Pillow>=10.0.0
+
+# Configuration management / إدارة الإعدادات
+# python-dotenv>=1.0.0
+
+# Logging enhancements / تحسينات التسجيل
+# colorlog>=6.7.0
+
+# Date/time handling / معالجة التاريخ والوقت
+# python-dateutil>=2.8.2
+
+# Cloud storage integration / تكامل التخزين السحابي
+# boto3>=1.28.0  # For AWS S3
+# google-cloud-storage>=2.10.0  # For Google Cloud
+
+# Testing / الاختبار
+# pytest>=7.4.0
+# pytest-qt>=4.2.0
+
+# Code quality / جودة الكود
+# pylint>=3.0.0
+# black>=23.0.0
+
+# Documentation / التوثيق
+# sphinx>=7.0.0
+
+# ============================================
+# Installation Instructions / تعليمات التثبيت
+# ============================================
+#
+# To install all required dependencies:
+# لتثبيت جميع المكتبات المطلوبة:
+#
+# pip install -r requirements.txt
+#
+# For development environment:
+# لبيئة التطوير:
+#
+# pip install -r requirements.txt
+#
+# ============================================
+# Notes / ملاحظات
+# ============================================
+#
+# - Python 3.8 or higher is required
+#   يتطلب Python 3.8 أو أحدث
+#
+# - Virtual environment is recommended
+#   يوصى باستخدام بيئة افتراضية
+#
+# - Some features require additional system dependencies
+#   بعض الميزات تتطلب مكتبات نظام إضافية
+#
